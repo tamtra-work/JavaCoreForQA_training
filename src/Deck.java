@@ -1,43 +1,74 @@
+import java.util.Random;
 
 public class Deck {
 
-	// Ordered deck as array, will be used for primitive shuffle
 	private static int numbOfRanks = Rank.values().length;
-	private static Card[][] arrayOfCards = new Card[4][numbOfRanks];
+	private static int numbOfSuits = Suit.values().length;
+	private static int numbOfCardsLeft = numbOfRanks*numbOfSuits;
+	private static Random random = new Random();
+	private static Card[][] arrayOfCards = new Card[numbOfSuits][numbOfRanks];
 	static {
 		for (Suit suits : Suit.values()) {
-			//System.out.println(); //
 			for (Rank ranks : Rank.values()) {
-			//System.out.print(" "+suits+suits.ordinal()+" "+ranks+ranks.ordinal()+";"); 
-				//this.arrayOfCards[suits.ordinal()][ranks.ordinal()] = new Card(Suit.values()[suits.ordinal()], Rank.values()[ranks.ordinal()]);
-				//System.out.print(suits+" "+ranks+" ;" ); //
 				arrayOfCards[suits.ordinal()][ranks.ordinal()] = new Card(suits, ranks);	
 			}
 		}
 	}
 	
-	// Takes cards from deck beginning and puts them to the deck end (used in complex shuffle)
-/*	private static void putCardsToDeckEnd() {
-		ArrayList<Card> bufferArrayListOfCards = new ArrayList<Card>(someOfUpperPile);
-		// fill buffer with someOfUpperPile elements
-		for (int i=0; i<someOfUpperPile; i++) {
-			bufferArrayListOfCards.add(arrayListOfCards.get(i));
+	public static void resetDeck() {
+		numbOfCardsLeft = numbOfRanks*numbOfSuits;
+		for (Suit suits : Suit.values()) {
+			for (Rank ranks : Rank.values()) {
+				arrayOfCards[suits.ordinal()][ranks.ordinal()] = new Card(suits, ranks);	
+			}
 		}
-		arrayListOfCards.removeAll(bufferArrayListOfCards);
-		arrayListOfCards.addAll(bufferArrayListOfCards);
-	}*/
-	
-	public static void ReturnFirstCard() {
-		System.out.println(arrayOfCards[0][0].rank.toString());
-		System.out.println(arrayOfCards[0][0].suit.toString());
 	}
 	
-	public static void ReturnCardByIndex(int suitIndex, int rankIndex) {
-		System.out.println(arrayOfCards[suitIndex][rankIndex].rank.toString());
-		System.out.println(arrayOfCards[suitIndex][rankIndex].suit.toString());
+	public static void printDeck() {
+		for (int i=0; i<numbOfSuits; i++) {
+			for (int j=0; j<numbOfRanks; j++) {
+				System.out.print(arrayOfCards[i][j].rank+" "+arrayOfCards[i][j].suit+"; ");
+			}
+			System.out.println(); 
+		}
+		System.out.println(); 
 	}
-
 	
+	public static void Shuffle() {
+		int numberOfShuffles = random.nextInt(100);
+		while(numberOfShuffles > 0) {
+			int indexFrom1 = random.nextInt(numbOfSuits);
+			int indexFrom2 = random.nextInt(numbOfRanks);
+			int indexTo1 = random.nextInt(numbOfSuits);
+			int indexTo2 = random.nextInt(numbOfRanks);
+			Card bufferCard = arrayOfCards[indexFrom1][indexFrom2];
+			arrayOfCards[indexFrom1][indexFrom2] = arrayOfCards[indexTo1][indexTo2];
+			arrayOfCards[indexTo1][indexTo2] = bufferCard;
+			numberOfShuffles--;
+		}
+	}
 	
-
+	public static void giveOneCard() {
+		int indexInSuits;
+		int indexInRanks;
+		boolean cardWasReturned = false;
+		
+		if(numbOfCardsLeft==0) {
+			System.out.println("No cards left in deck. Reset the deck");
+		}
+		else {
+			while (!cardWasReturned){
+				indexInSuits = random.nextInt(numbOfSuits);
+				indexInRanks = random.nextInt(numbOfRanks);
+				Card cardToReturn = arrayOfCards[indexInSuits][indexInRanks];
+				if (arrayOfCards[indexInSuits][indexInRanks]!=null) {
+					System.out.println("Returned card is "+cardToReturn.suit+" "+cardToReturn.rank);
+					System.out.println(numbOfCardsLeft+" card left in deck");
+					arrayOfCards[indexInSuits][indexInRanks]=null;
+					numbOfCardsLeft--;
+					cardWasReturned = true;
+				}
+			}
+		}
+	}
 }

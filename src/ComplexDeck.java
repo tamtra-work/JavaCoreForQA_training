@@ -4,11 +4,24 @@ import java.util.Random;
 
 public class ComplexDeck {
 	
+	private static int numbOfRanks = Rank.values().length;
+	private static int numbOfSuits = Suit.values().length;
+	private static int numbOfCardsLeft = numbOfRanks*numbOfSuits;
+	
 		private static ArrayList<Card> arrayListOfCards = new ArrayList<Card>();
 		static {
 			for (Suit suits : Suit.values()) {
 				for (Rank ranks : Rank.values()) {
 					arrayListOfCards.add(new Card(suits, ranks));
+				}
+			}
+		}
+		
+		public static void resetDeck() {
+			numbOfCardsLeft = numbOfRanks*numbOfSuits;
+			for (Suit suits : Suit.values()) {
+				for (Rank ranks : Rank.values()) {
+					arrayListOfCards.add(new Card(suits, ranks));				
 				}
 			}
 		}
@@ -21,12 +34,39 @@ public class ComplexDeck {
 			System.out.println("");
 		}
 		
-		public static void ShuffleTheDeck() {
+		public static void Shuffle() {
+			Random random = new Random();
+			int numberOfShuffles = random.nextInt(100);
+			while(numberOfShuffles > 0) {
+				// take upper pile of a deck, number of cards is random
+				int upperPile = random.nextInt(36);
+				// take some number of cards from upperPile's end and put them to the deck end;
+				// repeat until there's no cards left in upperPile
+				while (upperPile > 0) {
+					int someOfUpperPile = random.nextInt(upperPile+1);
+					// Takes cards from deck beginning and puts them to the deck end
+					ArrayList<Card> bufferArrayListOfCards = new ArrayList<Card>();
+					// fill buffer with someOfUpperPile cards
+					for (int i=(upperPile-someOfUpperPile); i<upperPile; i++) {
+						bufferArrayListOfCards.add(arrayListOfCards.get(i));
+					}
+					//
+					ComplexDeck.arrayListOfCards.removeAll(bufferArrayListOfCards);
+					// remove null elements
+					ComplexDeck.arrayListOfCards.removeAll(Collections.singleton(null)); 
+					ComplexDeck.arrayListOfCards.addAll(bufferArrayListOfCards);
+					upperPile = upperPile - someOfUpperPile;
+				}
+				numberOfShuffles--;
+			}
+		}
+
+		public static void ShuffleWithDebugMsg() {
 			System.out.println("### Printing source deck... ###");
 			ComplexDeck.printDeck();
 			
 			Random random = new Random();
-			int numberOfShuffles = random.nextInt(50);
+			int numberOfShuffles = random.nextInt(100);
 			while(numberOfShuffles > 0) {
 				System.out.println("*******"+numberOfShuffles+" Shuffles left*******"); 
 				// take upper pile of a deck, number of cards is random
@@ -58,5 +98,8 @@ public class ComplexDeck {
 				ComplexDeck.printDeck();
 			}
 		}
-
+		
+/*		public static Card giveOneCard() {
+			return
+		}*/
 }

@@ -3,7 +3,7 @@ public class DoSomeTricks {
 
 	public static void main(String[] args) {
 	
-/*		// Simple shuffle
+		// Simple shuffle
 		System.out.println("*** Source deck ***");
 		Deck.printDeck();
 		Deck.Shuffle();
@@ -15,50 +15,17 @@ public class DoSomeTricks {
 		ComplexDeck.printDeck();
 		ComplexDeck.Shuffle();
 		System.out.println("*** Shuffled complex deck ***");
-		ComplexDeck.printDeck();*/
+		ComplexDeck.printDeck();
 		
 		// Return card from deck
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		Deck.giveOneCard();
+		System.out.println("*** Returning several cards from deck ***");
 		Deck.giveOneCard();
 		Deck.giveOneCard();
 		
-		Deck.giveOneCard();
-		Deck.giveOneCard();
-		
-		
+		// Return card from complex deck		
+		System.out.println("*** Returning several cards from complex deck ***");
+		ComplexDeck.giveOneCard();
+		ComplexDeck.giveOneCard();
 
 	}
 	

@@ -15,6 +15,7 @@ public class Deck {
 		}
 	}
 	
+	// Resets deck to its initial sorted state
 	public static void resetDeck() {
 		numbOfCardsLeft = numbOfRanks*numbOfSuits;
 		for (Suit suits : Suit.values()) {
@@ -52,6 +53,7 @@ public class Deck {
 		int indexInSuits;
 		int indexInRanks;
 		boolean cardWasReturned = false;
+		Card cardToReturn;
 		
 		if(numbOfCardsLeft==0) {
 			System.out.println("No cards left in deck. Reset the deck");
@@ -60,15 +62,16 @@ public class Deck {
 			while (!cardWasReturned){
 				indexInSuits = random.nextInt(numbOfSuits);
 				indexInRanks = random.nextInt(numbOfRanks);
-				Card cardToReturn = arrayOfCards[indexInSuits][indexInRanks];
-				if (arrayOfCards[indexInSuits][indexInRanks]!=null) {
+				cardToReturn = arrayOfCards[indexInSuits][indexInRanks];
+				if (cardToReturn!=null) {
 					System.out.println("Returned card is "+cardToReturn.suit+" "+cardToReturn.rank);
-					System.out.println(numbOfCardsLeft+" card left in deck");
-					arrayOfCards[indexInSuits][indexInRanks]=null;
 					numbOfCardsLeft--;
+					arrayOfCards[indexInSuits][indexInRanks]=null;
 					cardWasReturned = true;
 				}
 			}
 		}
 	}
+	
+
 }
